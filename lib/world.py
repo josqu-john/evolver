@@ -9,6 +9,8 @@ class World(object):
         self.world_average_food_recovery = average_food_recovery
         self.world_food_recovery_randomes = food_revovery_randomes
 
+
+        list(self.world_cells)
         self.gen_world()
 
     def world_make_cell_name(self, x, y):
@@ -46,6 +48,20 @@ class World(object):
             i += 1
             self.world_make_cell(actual_x, actual_y, is_border)
         print "-Finish Cell gen-"
+
+    def world_next_round(self, amount = 3):
+        i = 0
+        while i < amount:
+            print " "
+            print "World next Round"
+            a = len(self.world_cells)
+            x = 0
+            while x < a:
+                name = list(self.world_cells)[x]
+                self.world_cells[name].cell_next_round()
+                x += 1
+            i += 1
+
 class Cell(object):
     def __init__(self, name, x, y, is_border, food_recovery, food_storage = 1):
         self.name = name
@@ -58,5 +74,7 @@ class Cell(object):
         self.cell_food_storage = food_recovery
         self.cell_food_recovery =  food_storage
     def cell_next_round(self):
+        print "Cell %s next round" % (self.name)
         self.cell_food_storage += self.cell_food_recovery
-w = World(4, 4, 3, 3)
+#w = World(3, 3, 3, 3)
+#w.world_next_round()
