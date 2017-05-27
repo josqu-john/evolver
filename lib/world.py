@@ -22,7 +22,7 @@ class World(object):
         is_border = None
         print "-Begin world gen-"
         while i < wanted_cells or i == wanted_cells:
-            if actual_x == self.world_max_x: # Check if it at End of x
+            if actual_x == self.world_max_x: # Check if at End of x
                 actual_x = 1
                 actual_y += 1
                 print ''
@@ -46,4 +46,4 @@ class Cell(object):
 
     def cell_next_round(self):
         foo = None
-w = World(4, 4)
+#w = World(4, 4)
