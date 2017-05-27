@@ -1,19 +1,30 @@
+import random
+
 class World(object):
-    def __init__(self, max_x, max_y):
+    def __init__(self, max_x, max_y, average_food_recovery, food_revovery_randomes):
         self.world_max_x = max_x
         self.world_max_y = max_y
         self.world_amount_cells = 0
         self.world_cells = {}
+        self.world_average_food_recovery = average_food_recovery
+        self.world_food_recovery_randomes = food_revovery_randomes
 
         self.gen_world()
 
     def world_make_cell_name(self, x, y):
         cell_name = '%d/%d' % (x, y)
         return cell_name
+    def world_make_cell_food_recovery_rate(self, average, y):
+        a = random.uniform(0.1, y)
+        x = average * a
+        return x
     def world_make_cell(self, x, y, is_border):
         name = self.world_make_cell_name(x, y)
-        self.world_cells[name] = Cell(name, x, y, is_border)
-        print "create Cell: %s border: %s" % (name,is_border)
+        food_recovery = self.world_make_cell_food_recovery_rate(self.world_average_food_recovery,self.world_food_recovery_randomes)
+
+        self.world_cells[name] = Cell(name, x, y, is_border, food_recovery)
+        print "create Cell: %s; border: %s; food_recovery: %s" % (name,is_border,food_recovery)
+
     def gen_world(self):
         wanted_cells = self.world_max_x * self.world_max_y
         i = 1
@@ -36,7 +47,7 @@ class World(object):
             self.world_make_cell(actual_x, actual_y, is_border)
         print "-Finish Cell gen-"
 class Cell(object):
-    def __init__(self, name, x, y, is_border):
+    def __init__(self, name, x, y, is_border, food_recovery, food_storage = 1):
         self.name = name
 
         self.cell_pos_x = x
@@ -44,6 +55,8 @@ class Cell(object):
         self.cell_is_border = is_border
         self.cell_is_used = False
 
+        self.cell_food_storage = food_recovery
+        self.cell_food_recovery =  food_storage
     def cell_next_round(self):
-        foo = None
-#w = World(4, 4)
+        self.cell_food_storage += self.cell_food_recovery
+w = World(4, 4, 3, 3)
