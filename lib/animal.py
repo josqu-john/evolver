@@ -1,14 +1,17 @@
 import random
 class Animal(object):
-    def __init__(self, spawn_x, spawn_y, border, speed):
+    def __init__(self, spawn_x, spawn_y, max_world_x, max_world, border,
+                 a_speed):
         self.pos_x = spawn_x
         self.pos_y = spawn_y
+        self.max_world_x = max_world_x
+        self.max_world_y = max_world_y
         self.pos_is_border = border
         self.food_storage = 1
 
 
         self.dna = {}
-        self.dna['animal_speed'] = speed
+        self.dna['animal_speed'] = a_speed
         self.dna['food_consume'] = 1.0
         self.dna['possible_split'] = 3.0
     def move_x(self, amount):
@@ -49,13 +52,20 @@ class Animal(object):
             else:
                 return self.dna
 
-    def animal_survive_next_round(self):
+    def animal_next_round_is_survive(self):
         survive = False
         self.food_storage -= self.food_consume
         if self.food_storage > 0:
             survive = True
         return survive
-
+'''
+    def animal_next_round_movement(self):
+        direction = None
+        world_min =
+        possible_direction = {'up': True, 'down': True, 'left': True, 'right': True}
+        if self.pos_x == self.max_world_x:
+            print "Foo not finished yet sry"
+'''
     def animal_give_pos_x(self):
         return self.pos_x
     def animal_give_pos_y(self):
@@ -65,6 +75,6 @@ class Animal(object):
     def animal_set_is_border(self, boolean):
         self.pos_is_border = boolean
 #o = False
-#monkey = Animal(3, 3, 2.0)
+#monkey = Animal(3, 3, 2, False)
 #while o == False:
-#    print monkey.animal_give_dna()
+    #print monkey.animal_give_dna()
