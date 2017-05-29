@@ -3,12 +3,12 @@ import os
 import time
 
 log_txt = "Unkown"
-def make_log(f = log_txt):
+def make_log(ex_name, f = log_txt):
     date = give_date()
     file_name = '%s' % (date)
     file_location = 'log/%s' % (file_name)
     touch('log/%s' % (file_name))
-    set_file(open(file_location, 'w'))
+    set_file(open(file_location, 'a'))
     write_('/<--- BEGIN LOG AT %s: --->' % (date))
 
 def set_file(var):
@@ -26,7 +26,10 @@ def write_(var):
     write_only(var)
     show(var)
 def close_log():
+    global log_txt
     write_('>--- END LOG AT %s: ---</' % (give_date()))
+    log_txt.close()
+
 def touch(path):
     with open(path, 'a'):
         os.utime(path, None)
